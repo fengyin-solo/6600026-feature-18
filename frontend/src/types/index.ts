@@ -5,6 +5,27 @@ export interface Sequence {
   length: number;
 }
 
+export type DiffType = 'match' | 'mismatch' | 'gap1' | 'gap2';
+
+export interface DiffRegion {
+  start: number;
+  end: number;
+  type: 'mismatch' | 'gap' | 'mixed';
+  length: number;
+}
+
+export interface AlignmentStats {
+  totalLength: number;
+  matches: number;
+  mismatches: number;
+  gaps: number;
+  gapOpens: number;
+  transitions: number;
+  transversions: number;
+  diffRegions: DiffRegion[];
+  perBaseDiff: boolean[];
+}
+
 export interface AlignmentResult {
   seq1: string;
   seq2: string;
@@ -14,6 +35,7 @@ export interface AlignmentResult {
   identity: number;  // percentage
   gaps: number;
   algorithm: string;
+  stats?: AlignmentStats;
 }
 
 export interface PhyloNode {
